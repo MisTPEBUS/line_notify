@@ -1,0 +1,37 @@
+// 產生 Prisma Client 的設定
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 資料庫連線設定，請依照實際情況修改 provider 及 DATABASE_URL
+datasource db {
+  provider = "postgresql" // 或 "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id         String   @id @default(uuid())
+  company    String //T C S M 
+  groupCode  String?  
+  phone      String?  
+  job        String?  
+  dept_id    String
+  empId      String
+  name       String
+  channelId  String
+  userId     String
+  insert_at  DateTime @map("insert_at")
+
+   dept       Dept     @relation(fields: [dept_id], references: [id])
+}
+
+
+model Dept {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String    @unique @db.VarChar(50)
+  created_at   DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
+
+  employees  Employee[]
+}
+
