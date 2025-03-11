@@ -20,10 +20,7 @@ export const delSuccess = (res: Response, status = 200): Response => {
  */
 export const Success = <T>(res: Response, data: T, status = 200): Response => {
   console.log(status);
-  return res.status(status).json({
-    status: 'success',
-    data,
-  });
+  return res.status(status).json(data);
 };
 /**
  * Sends a 404 Not Found JSON response for undefined routes.
@@ -36,8 +33,7 @@ export const Success = <T>(res: Response, data: T, status = 200): Response => {
 export const NotFound = (req: Request, res: Response) => {
   logger.error(`404 :${req.path}`);
   res.status(404).json({
-    status: 'error',
-    message: '查無此路由，請確認 API 格式!',
+    message: '查無此路由，請確認 API 格式!'
   });
 };
 
@@ -57,6 +53,8 @@ export interface AppError extends Error {
  */
 export const appError = (errMessage: string, next: NextFunction, httpStatus = 400) => {
   const error = new Error(errMessage) as AppError;
+
+
   error.statusCode = httpStatus;
   error.isOperational = true;
   error.status = httpStatus == 500 ? ErrorStatus[ErrorCode.INTERNAL_SERVER_ERROR] : ErrorStatus[ErrorCode.BAD_REQUEST];

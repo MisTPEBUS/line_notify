@@ -9,29 +9,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Employee {
-  id         String   @id @default(uuid())
-  company    String //T C S M 
-  groupCode  String?  
-  phone      String?  
-  job        String?  
-  dept_id    String
+model User {
+  id         String      @id @default(uuid())
+  company    String      // T C S M
+  groupCode  String?     
+  phone      String?     
+  job        String?     
+  dept_id    String      @map("dept_id") @db.Uuid  
   empId      String
   name       String
   channelId  String
-  userId     String
-  insert_at  DateTime @map("insert_at")
+  userId     String      @unique
+  insertAt   DateTime    @map("insert_at")
 
-   dept       Dept     @relation(fields: [dept_id], references: [id])
+  dept       Dept        @relation(fields: [dept_id], references: [id])
+  msgRecords MsgRecord[] 
 }
 
 
 model Dept {
-  id           String   @id @default(uuid()) @db.Uuid
-  name         String    @unique @db.VarChar(50)
-  created_at   DateTime @default(now()) @db.Timestamp(6)
-  updated_at DateTime @default(now()) @db.Timestamp(6)
-
-  employees  Employee[]
+  id       String    @id @default(uuid()) @db.Uuid
+  channelId  String
+  deptCode  String   
+  name      String    @unique @db.VarChar(50)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp(6)
+  users     User[]    
 }
+
+model MsgRecord {
+  id        String   @id @default(uuid())
+  userId    String   // 參考 User 的 id
+  user      User     @relation(fields: [userId], references: [id])
+  message   String   // 更新後回傳的訊息內容
+  status    String  
+  createdAt DateTime @default(now())
+}
+
+
 

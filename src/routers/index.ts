@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import creditPackageAdminRouter from './admin/creditPackage.routes';
-import creditPackageRouter from './user/creditPackage.routes';
+import userRouter from './user/user.routes';
+import configRouter from './user/config.routes';
+
+
 
 const router = Router();
 // 前台
-router.use('/credit-package', creditPackageRouter);
+router.use('/user', userRouter );
+router.use('/config',configRouter)
 
-// 後台
-router.use('/admin/credit-package', creditPackageAdminRouter);
 
 export default router;

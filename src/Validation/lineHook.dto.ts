@@ -7,19 +7,69 @@ import { z } from 'zod';
  * - credit_amount: 必須為一個正整數。
  * - price: 必須為一個正整數。
  */
-export const lineHookSchema = z.object({
-  id: z.string().uuid({ message: 'ID錯誤,請輸入正確格式' }),
-  company: z.string(),
-  groupCode: z.string(),
-  phone: z.string(),
-  job: z.string(),
-  dept: z.string(),
-  empId: z.string(),
-  name: z.string(),
-  userId: z.string(),
-  insert_at: z.string(),
+export const userSchema = z.object({
+  id: z.string({
+    required_error: 'id 為必填',
+    invalid_type_error: 'id 必須是字串',
+  }),
+  company: z.string({
+    required_error: 'company 為必填',
+    invalid_type_error: 'company 必須是字串',
+  }),
+  groupCode: z.string({
+    invalid_type_error: 'groupCode 必須是字串',
+  }).optional(),
+  phone: z.string({
+    invalid_type_error: 'phone 必須是字串',
+  }).optional(),
+  job: z.string({
+    invalid_type_error: 'job 必須是字串',
+  }).optional(),
+  dept_id: z.string({
+    required_error: 'dept_id 為必填',
+    invalid_type_error: 'dept_id 必須是字串',
+  }),
+  empId: z.string({
+    required_error: 'empId 為必填',
+    invalid_type_error: 'empId 必須是字串',
+  }),
+  name: z.string({
+    required_error: 'name 為必填',
+    invalid_type_error: 'name 必須是字串',
+  }),
+  channelId: z.string({
+    required_error: 'channelId 為必填',
+    invalid_type_error: 'channelId 必須是字串',
+  }),
+  userId: z.string({
+    required_error: 'userId 為必填',
+    invalid_type_error: 'userId 必須是字串',
+  }),
+  insertedAt: z.date({
+    required_error: 'insertedAt 為必填',
+    invalid_type_error: 'insertedAt 必須是日期',
+  }),
 });
 
+export const isCheckRequestSchema = z.object({
+  userId: z.string({
+    required_error: 'userId 為必填',
+    invalid_type_error: 'userId 必須是字串',
+  }),
+  channelId: z.string({
+    required_error: 'channelId 為必填',
+    invalid_type_error: 'channelId 必須是字串',
+  }),
+});
+
+
+
+
+
+export type CreteUserType = z.infer<typeof userSchema>;
+export type CheckUserType = z.infer<typeof isCheckRequestSchema>;
+
 export default {
-  lineHookSchema,
+  userSchema,
+  isCheckRequestSchema,
 };
