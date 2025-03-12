@@ -5,7 +5,6 @@ import logger from '../utils/logger';
 
 import { ZodError } from 'zod';
 
-import { CheckUserType } from '../Validation/user.dto';
 import { UserRepo } from '../repo/user.repo';
 import axios from 'axios';
 

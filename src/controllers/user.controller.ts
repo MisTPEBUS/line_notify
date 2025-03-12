@@ -3,8 +3,7 @@ import handleErrorAsync from '../middleware/handleErrorAsync';
 import { Success, appError } from '../utils/appResponse';
 import logger from '../utils/logger';
 
-import { CheckUserType } from '../Validation/user.dto';
-import { UserRepo, createUserType } from '../repo/user.repo';
+import { CheckUserType, UserRepo, createUserType } from '../repo/user.repo';
 
 export const UserController = {
   getUserByLineUserId: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {

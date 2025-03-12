@@ -3,7 +3,7 @@ import handleErrorAsync from '../middleware/handleErrorAsync';
 import { Success, appError, delSuccess } from '../utils/appResponse';
 import logger from '../utils/logger';
 import { ZodError } from 'zod';
-import { CheckUserType } from '../Validation/user.dto';
+
 import { UserRepo } from '../repo/user.repo';
 import { DeptRepo } from '../repo/setting.repo';
 

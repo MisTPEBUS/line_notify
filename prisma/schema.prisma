@@ -43,7 +43,7 @@ model MsgRecord {
   user      User     @relation(fields: [userId], references: [id])
   message   String   // 更新後回傳的訊息內容
   status    String  
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
 }
 
 

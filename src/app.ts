@@ -26,15 +26,15 @@ app.get('/OPTION', (req: Request, res: Response) => {
 app.use(NotFound);
 
 // middleware全域錯誤處理
-app.use((err: AppError, req: Request, res: Response, next:NextFunction) => {
+app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
   err.statusCode = err.statusCode || 500;
 
   logger.error(`${err.statusCode} :${req.path}-${err.message}`);
   res.setHeader('Content-Type', 'application/json'); // 確保回傳 JSON
   if (process.env.NODE_ENV === 'dev') {
-    return res.status(err.statusCode).json(err.message,);
+    return res.status(err.statusCode).json({ message: err.message });
   } else {
-    return res.status(err.statusCode).json(err.message,);
+    return res.status(err.statusCode).json({ message: err.message });
   }
 });
 
