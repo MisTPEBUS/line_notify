@@ -20,7 +20,7 @@ model User {
   name       String
   channelId  String
   userId     String      @unique
-  insertAt   DateTime   @default(now()) @map("created_at") @db.Timestamp(6)
+  insertAt   DateTime   @default(now()) @map("insert_at") @db.Timestamp(6)
 
   dept       Dept        @relation(fields: [dept_id], references: [id])
   msgRecords MsgRecord[] 
