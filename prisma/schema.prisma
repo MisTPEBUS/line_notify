@@ -20,7 +20,7 @@ model User {
   name       String
   channelId  String
   userId     String      @unique
-  insertAt   DateTime    @map("insert_at")
+  insertAt   DateTime   @default(now()) @map("created_at") @db.Timestamp(6)
 
   dept       Dept        @relation(fields: [dept_id], references: [id])
   msgRecords MsgRecord[] 
@@ -28,12 +28,12 @@ model User {
 
 
 model Dept {
-  id       String    @id @default(uuid()) @db.Uuid
+  id         String    @id @default(uuid()) @db.Uuid
   channelId  String
-  deptCode  String   
-  name      String    @unique @db.VarChar(50)
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp(6)
+  deptCode   String   
+  name       String    @unique @db.VarChar(50)
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp(6)
   users     User[]    
 }
 
