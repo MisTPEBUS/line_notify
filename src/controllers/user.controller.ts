@@ -48,7 +48,7 @@ export const UserController = {
       logger.info(`resData DELETE: ${req.path}`);
       return appError('ID不存在', next, 409);
     }
-    //await UserRepo.deleteUserByID({ userId, channelId });
+    await UserRepo.deleteUserByID({ userId, channelId });
 
     logger.info(`resData GET: ${req.path}`);
     Success(res, '刪除成功', 200);

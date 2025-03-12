@@ -33,7 +33,7 @@ export const Success = <T>(res: Response, data: T, status = 200): Response => {
 export const NotFound = (req: Request, res: Response) => {
   logger.error(`404 :${req.path}`);
   res.status(404).json({
-    message: '查無此路由，請確認 API 格式!'
+    message: '查無此路由，請確認 API 格式!',
   });
 };
 
@@ -53,7 +53,6 @@ export interface AppError extends Error {
  */
 export const appError = (errMessage: string, next: NextFunction, httpStatus = 400) => {
   const error = new Error(errMessage) as AppError;
-
 
   error.statusCode = httpStatus;
   error.isOperational = true;

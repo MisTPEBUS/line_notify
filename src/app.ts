@@ -26,7 +26,7 @@ app.get('/OPTION', (req: Request, res: Response) => {
 app.use(NotFound);
 
 // middleware全域錯誤處理
-app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: AppError, req: Request, res: Response, _next: NextFunction) => {
   err.statusCode = err.statusCode || 500;
 
   logger.error(`${err.statusCode} :${req.path}-${err.message}`);

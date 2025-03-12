@@ -7,4 +7,6 @@ const router = Router();
 router.use('/user', userRouter);
 router.use('/config', configRouter);
 
+router.use('/:chanelId/webhook', configRouter);
+
 export default router;

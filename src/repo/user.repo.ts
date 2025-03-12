@@ -77,9 +77,9 @@ export const UserRepo = {
    * 註銷刪除指定 id 的 User 資料
    * @param id 要刪除的 User id
    */
-  /*   deleteUserByID: async (userId: string): Promise<User> => {
-    return await prisma.user.delete({
-      where: { userId },
+  deleteUserByID: async (data: CheckUserType) => {
+    return await prisma.user.deleteMany({
+      where: { userId: data.userId, channelId: data.channelId },
     });
-  }, */
+  },
 };

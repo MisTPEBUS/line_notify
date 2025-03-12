@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import handleErrorAsync from '../middleware/handleErrorAsync';
-import { Success, appError, delSuccess } from '../utils/appResponse';
+import { Success } from '../utils/appResponse';
 import logger from '../utils/logger';
-import { ZodError } from 'zod';
 
-import { UserRepo } from '../repo/user.repo';
 import { DeptRepo } from '../repo/setting.repo';
 
 export const UiFormSettingController = {
@@ -25,7 +23,7 @@ export const UiFormSettingController = {
   /**
    * 取得所有 User 資料
    */
-  UiFormSetting: handleErrorAsync(async (req: Request, res: Response) => {
+  UiFormSetting: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
     const { channelId } = req.params;
     const resData = await DeptRepo.getDeptSelects(channelId);
     logger.info(`resData GET: ${req.path}`);

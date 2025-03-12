@@ -11,8 +11,8 @@ userRouter.post('/checkUser', validateData(isCheckRequestSchema, 'body'), UserCo
 //註冊
 userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserController.createUser);
 //註冊取消
-/* userRouter.delete('/:user_id', UserController.deleteUser);
-
+userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
+/*
 userRouter.get('/getUser/:userId');
 userRouter.post('/sendMsg', sendMsgController.sendMsg);
 userRouter.post('/sendMsgToGrop'); */

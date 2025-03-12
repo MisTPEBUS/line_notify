@@ -58,7 +58,7 @@ export const userSchema = z.object({
 });
 
 export const isCheckRequestSchema = userSchema.pick({ userId: true, channelId: true });
-export const createUserRequestSchema = userSchema.omit({ userId: true, channelId: true });
+export const createUserRequestSchema = userSchema.omit({ id: true, insertedAt: true });
 
 export type CreteUserType = z.infer<typeof userSchema>;
 export type createUserRequestSchemaType = z.infer<typeof createUserRequestSchema>;
