@@ -16,15 +16,21 @@ export const userSchema = z.object({
     required_error: 'company 為必填',
     invalid_type_error: 'company 必須是字串',
   }),
-  groupCode: z.string({
-    invalid_type_error: 'groupCode 必須是字串',
-  }).optional(),
-  phone: z.string({
-    invalid_type_error: 'phone 必須是字串',
-  }).optional(),
-  job: z.string({
-    invalid_type_error: 'job 必須是字串',
-  }).optional(),
+  groupCode: z
+    .string({
+      invalid_type_error: 'groupCode 必須是字串',
+    })
+    .optional(),
+  phone: z
+    .string({
+      invalid_type_error: 'phone 必須是字串',
+    })
+    .optional(),
+  job: z
+    .string({
+      invalid_type_error: 'job 必須是字串',
+    })
+    .optional(),
   dept_id: z.string({
     required_error: 'dept_id 為必填',
     invalid_type_error: 'dept_id 必須是字串',
@@ -51,20 +57,7 @@ export const userSchema = z.object({
   }),
 });
 
-export const isCheckRequestSchema = z.object({
-  userId: z.string({
-    required_error: 'userId 為必填',
-    invalid_type_error: 'userId 必須是字串',
-  }),
-  channelId: z.string({
-    required_error: 'channelId 為必填',
-    invalid_type_error: 'channelId 必須是字串',
-  }),
-});
-
-
-
-
+export const isCheckRequestSchema = userSchema.pick({ userId: true, channelId: true });
 
 export type CreteUserType = z.infer<typeof userSchema>;
 export type CheckUserType = z.infer<typeof isCheckRequestSchema>;

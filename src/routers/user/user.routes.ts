@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { UserController } from '../../controllers/user.controller';
 import { validateData } from '../../middleware/validateRequest';
-import { isCheckRequestSchema, userSchema } from '../../Validation/user.dto';
+/* import { isCheckRequestSchema, userSchema } from '../../Validation/user.dto'; */
 import { sendMsgController } from '../../controllers/sendMsg.controller';
+import { isCheckRequestSchema } from '../../Validation/user.dto';
 
 // Import the missing CheckUserType type
 const userRouter = Router();
 
-userRouter.get('/checkUser', validateData(isCheckRequestSchema, 'query'), UserController.getUserByLineUserId);
+userRouter.post('/checkUser', validateData(isCheckRequestSchema, 'body'), UserController.getUserByLineUserId);
 //註冊
 /* userRouter.post('/', validateData(user), UserController.createUser);
 //註冊取消

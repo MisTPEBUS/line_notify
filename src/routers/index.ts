@@ -4,7 +4,7 @@ import configRouter from './user/config.routes';
 
 const router = Router();
 // 前台
-/* router.use('/user', userRouter); */
+router.use('/user', userRouter);
 router.use('/config', configRouter);
 
 export default router;
