@@ -5,12 +5,12 @@ CREATE TABLE "User" (
     "groupCode" TEXT,
     "phone" TEXT,
     "job" TEXT,
-    "dept_id" UUID NOT NULL,
+    "dept" TEXT NOT NULL,
     "empId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "channelId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "insert_at" TIMESTAMP(3) NOT NULL,
+    "insert_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -33,7 +33,7 @@ CREATE TABLE "MsgRecord" (
     "userId" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "status" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "MsgRecord_pkey" PRIMARY KEY ("id")
 );
@@ -43,9 +43,3 @@ CREATE UNIQUE INDEX "User_userId_key" ON "User"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Dept_name_key" ON "Dept"("name");
-
--- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_dept_id_fkey" FOREIGN KEY ("dept_id") REFERENCES "Dept"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MsgRecord" ADD CONSTRAINT "MsgRecord_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

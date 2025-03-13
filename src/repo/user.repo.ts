@@ -6,7 +6,7 @@ export interface User {
   groupCode?: string | null;
   phone?: string | null;
   job?: string | null;
-  dept_id: string;
+  dept: string;
   empId: string;
   name: string;
   channelId: string;
@@ -23,19 +23,11 @@ export const UserRepo = {
   getUserByChannelId: async (channelId: string) => {
     return await prisma.user.findFirst({
       where: { channelId },
-      include: {
-        dept: true,
-        msgRecords: true,
-      },
     });
   },
   getUserByUserId: async (CheckUser: CheckUserType): Promise<User | null> => {
     return await prisma.user.findFirst({
       where: { userId: CheckUser.userId, channelId: CheckUser.channelId },
-      include: {
-        dept: true,
-        msgRecords: true,
-      },
     });
   },
 

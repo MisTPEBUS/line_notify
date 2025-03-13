@@ -31,9 +31,9 @@ export const userSchema = z.object({
       invalid_type_error: 'job 必須是字串',
     })
     .optional(),
-  dept_id: z.string({
-    required_error: 'dept_id 為必填',
-    invalid_type_error: 'dept_id 必須是字串',
+  dept: z.string({
+    required_error: 'dept 為必填',
+    invalid_type_error: 'dept 必須是字串',
   }),
   empId: z.string({
     required_error: 'empId 為必填',

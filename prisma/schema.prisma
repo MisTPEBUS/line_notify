@@ -1,50 +1,39 @@
-// 產生 Prisma Client 的設定
 generator client {
   provider = "prisma-client-js"
 }
 
-// 資料庫連線設定，請依照實際情況修改 provider 及 DATABASE_URL
 datasource db {
-  provider = "postgresql" // 或 "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String      @id @default(uuid())
-  company    String      // T C S M
-  groupCode  String?     
-  phone      String?     
-  job        String?     
-  dept_id    String      @map("dept_id") @db.Uuid  
-  empId      String
-  name       String
-  channelId  String
-  userId     String      @unique
-  insertAt   DateTime   @default(now()) @map("insert_at") @db.Timestamp(6)
-
-  dept       Dept        @relation(fields: [dept_id], references: [id])
-  msgRecords MsgRecord[] 
+  id        String   @id @default(uuid())
+  company   String
+  groupCode String?
+  phone     String?
+  job       String?
+  dept      String
+  empId     String
+  name      String
+  channelId String
+  userId    String   @unique
+  insertAt  DateTime @default(now()) @map("insert_at") @db.Timestamp(6)
 }
 
-
 model Dept {
-  id         String    @id @default(uuid()) @db.Uuid
-  channelId  String
-  deptCode   String   
-  name       String    @unique @db.VarChar(50)
-  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp(6)
-  users     User[]    
+  id        String   @id @default(uuid()) @db.Uuid
+  channelId String
+  deptCode  String
+  name      String   @unique @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp(6)
 }
 
 model MsgRecord {
   id        String   @id @default(uuid())
-  userId    String   // 參考 User 的 id
-  user      User     @relation(fields: [userId], references: [id])
-  message   String   // 更新後回傳的訊息內容
-  status    String  
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  userId    String
+  message   String
+  status    String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
 }
-
-
-
