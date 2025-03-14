@@ -3,6 +3,7 @@ import { UserController } from '../../controllers/user.controller';
 import { validateData } from '../../middleware/validateRequest';
 
 import { createUserRequestSchema, isCheckRequestSchema } from '../../Validation/user.dto';
+import { sendMsgController } from '../../controllers/sendMsg.controller';
 
 // Import the missing CheckUserType type
 const userRouter = Router();
@@ -14,9 +15,10 @@ userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserControll
 userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
 
 userRouter.get('/getUsers/:channelId', UserController.getAllByChannelId);
+userRouter.post('/sendMsgToGroup', sendMsgController.sendMsg);
 /*
 userRouter.get('/getUser/:userId');
 userRouter.post('/sendMsg', sendMsgController.sendMsg);
-userRouter.post('/sendMsgToGrop'); */
+*/
 
 export default userRouter;

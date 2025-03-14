@@ -1,5 +1,12 @@
 import prisma from '../prisma';
 
+export interface UserFilters {
+  company?: string;
+  dept?: string;
+  empId?: string;
+  job?: string;
+  channelId?: string;
+}
 export interface User {
   id: string;
   company: string; // 限制 company 的值
@@ -28,6 +35,19 @@ export const UserRepo = {
   getUserByUserId: async (CheckUser: CheckUserType): Promise<User | null> => {
     return await prisma.user.findFirst({
       where: { userId: CheckUser.userId, channelId: CheckUser.channelId },
+    });
+  },
+
+  findUsersByField: async (filters: UserFilters): Promise<User[]> => {
+    // 建立動態查詢條件
+    const query: Record<string, any> = {};
+    if (filters.company) query.company = filters.company;
+    if (filters.dept) query.dept = filters.dept;
+    if (filters.empId) query.empId = filters.empId;
+    if (filters.job) query.job = filters.job;
+    if (filters.channelId) query.channelId = filters.channelId;
+    return await prisma.user.findMany({
+      where: query,
     });
   },
 
