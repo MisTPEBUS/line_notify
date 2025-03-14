@@ -23,10 +23,11 @@ export const sendMsgController = {
     const { company, dept, job, empId, message, requireConfirmation } = req.body;
     // 依據條件取得目標成員資料
     let condition = '';
-    condition = company ?? condition + `company = ${company}`;
-    condition = dept ?? condition + `company = ${dept}`;
-    condition = job ?? condition + `company = ${job}`;
-    condition = empId ?? condition + `company = ${empId}`;
+    if (company) condition = `company = ${company};`;
+    if (dept) condition = condition + `dept = ${dept};`;
+    if (job) condition = condition + `job = ${job};`;
+    if (empId) condition = condition + `empId = ${empId};`;
+    console.log(condition);
 
     let channelId = company == 'T' ? '2007028490' : '2007028490';
     const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
