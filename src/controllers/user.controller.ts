@@ -19,6 +19,22 @@ export const UserController = {
     logger.info(`resData GET: ${req.path}`);
     Success(res, resData);
   }),
+  getAllFilter: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
+    const { company, dept, job, empId, message, requireConfirmation } = req.body;
+    // 依據條件取得目標成員資料
+    let condition = '';
+    if (company) condition = `company = ${company};`;
+    if (dept) condition = condition + `dept = ${dept};`;
+    if (job) condition = condition + `job = ${job};`;
+    if (empId) condition = condition + `empId = ${empId};`;
+    console.log(condition);
+
+    let channelId = company === 'T' ? '2007028490' : company === 'C' ? '2007054553' : '';
+
+    const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
+    console.log(msgGroup);
+    Success(res, msgGroup);
+  }),
 
   createUser: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data: createUserType = req.body;

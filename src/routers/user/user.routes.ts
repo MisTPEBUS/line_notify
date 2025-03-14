@@ -14,7 +14,7 @@ userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserControll
 //註冊取消
 userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
 
-userRouter.get('/getUsers/:channelId', UserController.getAllByChannelId);
+userRouter.post('/getUsers', UserController.getAllFilter);
 userRouter.post('/sendMsgToGroup', sendMsgController.sendMsg);
 /*
 userRouter.get('/getUser/:userId');
