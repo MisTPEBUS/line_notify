@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { createUserType } from '../repo/user.repo';
 
-export const sendMsgService = async (user: createUserType, msg?: string) => {
-  const CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
+export const sendMsgService = async (user: createUserType, company: string, msg?: string) => {
+  let token =
+    company === 'T' ? (process.env.LINE_CHANNEL_ACCESS_TOKEN_TP ? process.env.LINE_CHANNEL_ACCESS_TOKEN_CP : '') : '';
+
   const messageText = msg ?? '這是一則範例訊息';
   console.log(123);
   const payload = {
@@ -18,7 +20,7 @@ export const sendMsgService = async (user: createUserType, msg?: string) => {
   await axios.post('https://api.line.me/v2/bot/message/push', payload, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${CHANNEL_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };

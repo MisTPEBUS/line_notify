@@ -6,18 +6,6 @@ import { UserRepo } from '../repo/user.repo';
 import { Success } from '../utils/appResponse';
 import { sendMsgService } from '../service/lineService';
 
-const USER_ID = 'U75e1554845bd81cba2151682ee99363d';
-
-const messageData = {
-  to: USER_ID,
-  messages: [
-    {
-      type: 'text',
-      text: 'Hello, this is a test message from LINE API!',
-    },
-  ],
-};
-
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { company, dept, job, empId, message, requireConfirmation } = req.body;
@@ -29,7 +17,8 @@ export const sendMsgController = {
     if (empId) condition = condition + `empId = ${empId};`;
     console.log(condition);
 
-    let channelId = company == 'T' ? '2007028490' : '2007028490';
+    let channelId = company === 'T' ? '2007028490' : company === 'C' ? '2007054553' : '';
+
     const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
     let successCount: number = 0;
     let failMember: string[] = [];
