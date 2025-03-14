@@ -12,6 +12,8 @@ userRouter.post('/checkUser', validateData(isCheckRequestSchema, 'body'), UserCo
 userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserController.createUser);
 //註冊取消
 userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
+
+userRouter.get('/channelId', UserController.getAllByChannelId);
 /*
 userRouter.get('/getUser/:userId');
 userRouter.post('/sendMsg', sendMsgController.sendMsg);

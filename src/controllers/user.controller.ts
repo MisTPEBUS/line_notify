@@ -9,10 +9,11 @@ export const UserController = {
   getUserByLineUserId: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { userId, channelId }: CheckUserType = req.body;
     const resData = await UserRepo.getUserByUserId({ userId, channelId });
-    logger.info(`resData GET: ${req.path}`);
+    logger.info(`resData POST: ${req.path}`);
+    console.log(1222);
     Success(res, resData);
   }),
-  getAll: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
+  getAllByChannelId: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
     const { channelId } = req.params;
     const resData = await UserRepo.getUserByChannelId(channelId);
     logger.info(`resData GET: ${req.path}`);
