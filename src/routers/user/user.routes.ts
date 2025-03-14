@@ -13,7 +13,7 @@ userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserControll
 //註冊取消
 userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
 
-userRouter.get('/channelId', UserController.getAllByChannelId);
+userRouter.get('/getUsers/:channelId', UserController.getAllByChannelId);
 /*
 userRouter.get('/getUser/:userId');
 userRouter.post('/sendMsg', sendMsgController.sendMsg);
