@@ -7,8 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) // UUID primary key
   company   String
   groupCode String?
   phone     String?
@@ -17,8 +18,11 @@ model User {
   empId     String
   name      String
   channelId String
-  userId    String   @unique
+  userId    String  
   insertAt  DateTime @default(now()) @map("insert_at") @db.Timestamp(6)
+
+ 
+  messages  MsgRecord[] @relation("UserMessages")
 }
 
 model Dept {
@@ -31,9 +35,13 @@ model Dept {
 }
 
 model MsgRecord {
-  id        String   @id @default(uuid())
-  userId    String
+  id        String   @id @default(uuid()) // UUID primary key
+  userId    String   @db.Uuid // Ensuring it matches User.id
+  groupCode String?
   message   String
   status    String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+
+  // Corrected relation: MsgRecord.userId references User.id
+  user      User  @relation("UserMessages", fields: [userId], references: [id], onDelete: Cascade)
 }
