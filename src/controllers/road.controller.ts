@@ -20,9 +20,10 @@ export const RoadController = {
     logger.info(`resData GET: ${req.path}`);
     //201;
     try {
-      const newUser = await RoadRepo.createRoad({ ...data });
-      sendMsgServiceV2(data.userId, data.channelId, msgResponse.REGISTER);
-      Success(res, newUser);
+      console.log(data);
+      const newRoad = await RoadRepo.createRoad({ ...data });
+      //sendMsgServiceV2(data.userId, data.channelId, msgResponse.REGISTER);
+      Success(res, newRoad);
     } catch (error) {
       if (error instanceof Error) {
         return appError(error.message, next, 400);
@@ -32,14 +33,12 @@ export const RoadController = {
     }
   }),
   getRecords: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data: createRoadType = req.body;
-
     logger.info(`resData GET: ${req.path}`);
     //201;
     try {
-      const newUser = await RoadRepo.getAllRoad();
+      const RoadRecords = await RoadRepo.getAllRoad();
 
-      Success(res, newUser);
+      Success(res, RoadRecords);
     } catch (error) {
       if (error instanceof Error) {
         return appError(error.message, next, 400);

@@ -1,54 +1,55 @@
 import { z } from 'zod';
-/**
- * 定義 lineHook 資料驗證的 Schema。
- *
- * 此模式用於驗證與 lineHook 相關的資料結構，包含：
- * - name: string必填。
- * - credit_amount: 必須為一個正整數。
- * - price: 必須為一個正整數。
- */
+
 export const roadSchema = z.object({
-  id: z.string({
-    required_error: 'id 為必填',
-    invalid_type_error: 'id 必須是字串',
-  }),
+  id: z.string().optional(), // optional 只是保留型別一致性
   company: z.string({
     required_error: 'company 為必填',
     invalid_type_error: 'company 必須是字串',
   }),
-  groupCode: z
-    .string({
-      invalid_type_error: 'groupCode 必須是字串',
-    })
-    .optional(),
-  lineName: z
-    .string({
-      invalid_type_error: 'lineName 必須是字串',
-    })
-    .optional(),
-  carNo: z
-    .string({
-      invalid_type_error: 'carNo 必須是字串',
-    })
-    .optional(),
+  groupCode: z.string().optional(),
+
+  lineName: z.string({
+    required_error: 'lineName 為必填',
+    invalid_type_error: 'lineName 必須是字串',
+  }),
+
+  carNo: z.string({
+    required_error: 'carNo 為必填',
+    invalid_type_error: 'carNo 必須是字串',
+  }),
+
   channelId: z.string({
     required_error: 'channelId 為必填',
     invalid_type_error: 'channelId 必須是字串',
   }),
+
   userId: z.string({
     required_error: 'userId 為必填',
     invalid_type_error: 'userId 必須是字串',
   }),
-  insertedAt: z.date({
-    required_error: 'insertedAt 為必填',
-    invalid_type_error: 'insertedAt 必須是日期',
+
+  user_id: z.string({
+    required_error: 'user_id 為必填',
+    invalid_type_error: 'user_id 必須是字串(UUID)',
   }),
+
+  status: z.string().nullable().optional(),
+
+  score: z
+    .array(
+      z.string({
+        invalid_type_error: 'score 項目必須是字串',
+      }),
+      {
+        required_error: 'score 為必填',
+      },
+    )
+    .min(1, '至少需要一個 score 項目'),
+
+  createdAt: z.date().optional(), // Prisma 預設會產生
 });
 
-export const createRoadRequestSchema = roadSchema.omit({ id: true, insertedAt: true });
-
-export type createRoadRequestSchemaType = z.infer<typeof createRoadRequestSchema>;
-
-export default {
-  createRoadRequestSchema,
-};
+export const createRoadRequestSchema = roadSchema.omit({
+  id: true,
+  createdAt: true,
+});

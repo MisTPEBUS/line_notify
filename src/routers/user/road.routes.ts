@@ -9,6 +9,6 @@ const RoadRouter = Router();
 
 //註冊
 RoadRouter.post('/', validateData(createRoadRequestSchema, 'body'), RoadController.createRecord);
-RoadRouter.get('/', validateData(createRoadRequestSchema, 'body'), RoadController.getRecords);
+RoadRouter.get('/', RoadController.getRecords);
 
 export default RoadRouter;
