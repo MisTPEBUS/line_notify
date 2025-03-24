@@ -4,20 +4,18 @@ import handleErrorAsync from '../middleware/handleErrorAsync';
 import axios from 'axios';
 import { UserRepo } from '../repo/user.repo';
 import { Success } from '../utils/appResponse';
-import { sendMsgService } from '../service/lineService';
+import { sendMsgService, sendMsgServiceV2 } from '../service/lineService';
 
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { company, dept, job, empId, message, requireConfirmation } = req.body;
+    const { company, dept, job, empId, message, requireConfirmation, channelId } = req.body;
     // 依據條件取得目標成員資料
     let condition = '';
-    if (company) condition = `company = ${company};`;
+    const cmpName = company === 'T' ? '臺北客運' : company === 'C' ? '首都客運' : '';
+    if (company) condition = `company = ${cmpName};`;
     if (dept) condition = condition + `dept = ${dept};`;
     if (job) condition = condition + `job = ${job};`;
     if (empId) condition = condition + `empId = ${empId};`;
-    console.log(condition);
-
-    let channelId = company === 'T' ? '2007028490' : company === 'C' ? '2007054553' : '';
 
     const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
     let successCount: number = 0;
@@ -27,7 +25,7 @@ export const sendMsgController = {
     for (const user of msgGroup) {
       try {
         // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
-        await sendMsgService(user, message);
+        await sendMsgServiceV2(user.userId, user.channelId, message);
         successCount++;
       } catch (error) {
         console.error(`發送訊息給 ${user.userId} 失敗`, error);

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createUserType } from '../repo/user.repo';
+import { msgResponse } from '../utils/msgResponse';
 
 export const sendMsgService = async (user: createUserType, company: string, msg?: string) => {
   let token =
@@ -28,17 +29,13 @@ export const sendMsgService = async (user: createUserType, company: string, msg?
   });
 };
 
-export const sendMsgService = async (user: createUserType, channelId: string, msg?: string) => {
-  let token =
-    company === 'T' ? (process.env.LINE_CHANNEL_ACCESS_TOKEN_TP ? process.env.LINE_CHANNEL_ACCESS_TOKEN_CP : '') : '';
+export const sendMsgServiceV2 = async (userId: string, channelId: string, msg?: string) => {
+  let token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
 
-  const configMapping = {
-    88764: process.env.LINE_CHANNEL_ACCESS_TOKEN_TP,
-  };
-  const messageText = msg ?? '這是一則範例訊息';
+  const messageText = msg;
 
   const payload = {
-    to: user.userId,
+    to: userId,
     messages: [
       {
         type: 'text',

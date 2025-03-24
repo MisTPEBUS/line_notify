@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id        String   @id @default(uuid()) // UUID primary key
   company   String
@@ -18,11 +17,13 @@ model User {
   empId     String
   name      String
   channelId String
-  userId    String  
+  userId    String   
+
   insertAt  DateTime @default(now()) @map("insert_at") @db.Timestamp(6)
 
- 
-  messages  MsgRecord[] @relation("UserMessages")
+  // 設定 User 與 RoadRecord / MsgRecord 的一對多關聯
+  roadRecords RoadRecord[] @relation("UserRoadRecords")
+  messages    MsgRecord[]  @relation("UserMessages")
 }
 
 model Dept {
@@ -36,12 +37,31 @@ model Dept {
 
 model MsgRecord {
   id        String   @id @default(uuid()) // UUID primary key
-  userId    String   @db.Uuid // Ensuring it matches User.id
+  user_id   String   // 確保與 User.id 保持一致
   groupCode String?
   message   String
   status    String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
 
-  // Corrected relation: MsgRecord.userId references User.id
-  user      User  @relation("UserMessages", fields: [userId], references: [id], onDelete: Cascade)
+  // 修正關聯，讓 MsgRecord 正確指向 User
+  user      User @relation("UserMessages", fields: [user_id], references: [id], onDelete: Cascade)
 }
+
+model RoadRecord {
+  id        String   @id @default(uuid()) 
+  userId    String   // 修正，確保與 User.id 一致
+  groupCode String?
+  company   String
+  channelId String
+  status    String?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+ 
+  lineName  String
+  carNo     String
+  score     String[] // 存儲多個評分項目
+
+  // 修正關聯，讓 RoadRecord 正確指向 User
+   user_id   String
+  user      User @relation("UserRoadRecords", fields: [user_id], references: [id], onDelete: Cascade)
+}
+

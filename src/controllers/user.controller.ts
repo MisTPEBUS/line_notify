@@ -4,6 +4,8 @@ import { Success, appError } from '../utils/appResponse';
 import logger from '../utils/logger';
 
 import { CheckUserType, UserRepo, createUserType } from '../repo/user.repo';
+import { sendMsgServiceV2 } from '../service/lineService';
+import { msgResponse } from '../utils/msgResponse';
 
 export const UserController = {
   getUserByLineUserId: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -20,19 +22,18 @@ export const UserController = {
     Success(res, resData);
   }),
   getAllFilter: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
-    const { company, dept, job, empId, message, requireConfirmation } = req.body;
+    const { company, dept, job, empId, message, requireConfirmation, channelId } = req.body;
     // 依據條件取得目標成員資料
     let condition = '';
-    if (company) condition = `company = ${company};`;
+    const cmpName = company === 'T' ? '臺北客運' : company === 'C' ? '首都客運' : '';
+    if (company) condition = `company = ${cmpName};`;
     if (dept) condition = condition + `dept = ${dept};`;
     if (job) condition = condition + `job = ${job};`;
     if (empId) condition = condition + `empId = ${empId};`;
     console.log(condition);
 
-    let channelId = company === 'T' ? '2007028490' : company === 'C' ? '2007054553' : '';
-
     const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
-    console.log(msgGroup);
+
     Success(res, msgGroup);
   }),
 
@@ -48,6 +49,7 @@ export const UserController = {
     //201;
     try {
       const newUser = await UserRepo.createUser({ ...data });
+      sendMsgServiceV2(data.userId, data.channelId, msgResponse.REGISTER);
       Success(res, newUser);
     } catch (error) {
       if (error instanceof Error) {
@@ -66,6 +68,7 @@ export const UserController = {
       return appError('ID不存在', next, 409);
     }
     await UserRepo.deleteUserByID({ userId, channelId });
+    sendMsgServiceV2(userId, channelId, msgResponse.DELETE_ACCOUNT);
 
     logger.info(`resData GET: ${req.path}`);
     Success(res, '刪除成功', 200);
