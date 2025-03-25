@@ -9,11 +9,11 @@ import { msgResponse } from '../utils/msgResponse';
 
 export const UserController = {
   getUserByLineUserId: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, channelId }: CheckUserType = req.body;
+    const { userId, channelId, menu }: CheckUserType & { menu: string } = req.body;
     const resData = await UserRepo.getUserByUserId({ userId, channelId });
     logger.info(`resData POST: ${req.path}`);
     console.log(1222);
-    Success(res, resData);
+    Success(res, { ...resData, menu });
   }),
   getAllByChannelId: handleErrorAsync(async (req: Request, res: Response, _next: NextFunction) => {
     const { channelId } = req.params;
