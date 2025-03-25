@@ -59,7 +59,8 @@ export const userSchema = z.object({
 
 export const isCheckRequestSchema = userSchema
   .pick({ userId: true, channelId: true })
-  .extend({ menu: z.string({ invalid_type_error: 'userId 必須是字串' }) });
+  .extend({ menu: z.string({ invalid_type_error: 'menu 必須是字串' }) })
+  .nullable();
 export const createUserRequestSchema = userSchema.omit({ id: true, insertedAt: true });
 
 export type CreteUserType = z.infer<typeof userSchema>;
