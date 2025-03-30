@@ -18,6 +18,9 @@ app.use(bodyParser.json());
 
 // Root Route
 app.use('/v1/api/lineHook', Router);
+app.get('/OPTION', (req: Request, res: Response) => {
+  res.status(200).json();
+});
 app.options('/', (req: Request, res: Response) => {
   res.status(200).json();
 });
