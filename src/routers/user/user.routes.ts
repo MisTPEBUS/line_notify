@@ -16,6 +16,7 @@ userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'par
 
 userRouter.post('/getUsers', UserController.getAllFilter);
 userRouter.post('/sendMsgToGroup', sendMsgController.sendMsg);
+
 /*
 userRouter.get('/getUser/:userId');
 userRouter.post('/sendMsg', sendMsgController.sendMsg);

@@ -14,6 +14,7 @@ export interface User {
   phone?: string | null;
   job?: string | null;
   dept: string;
+  notify_dept: string[];
   empId: string;
   name: string;
   channelId: string;
@@ -69,7 +70,10 @@ export const UserRepo = {
    */
   createUser: async (data: createUserType): Promise<User> => {
     return await prisma.user.create({
-      data,
+      data: {
+        ...data,
+        notify_dept: [data.dept],
+      },
     });
   },
 

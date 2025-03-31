@@ -35,6 +35,7 @@ export const userSchema = z.object({
     required_error: 'dept 為必填',
     invalid_type_error: 'dept 必須是字串',
   }),
+
   empId: z.string({
     required_error: 'empId 為必填',
     invalid_type_error: 'empId 必須是字串',
@@ -57,11 +58,7 @@ export const userSchema = z.object({
   }),
 });
 
-export const isCheckRequestSchema = userSchema
-  .pick({ userId: true, channelId: true })
-  .extend({ menu: z.string({ invalid_type_error: 'menu 必須是字串' }) })
-  .nullable()
-  .optional();
+export const isCheckRequestSchema = userSchema.pick({ userId: true, channelId: true });
 export const createUserRequestSchema = userSchema.omit({ id: true, insertedAt: true });
 
 export type CreteUserType = z.infer<typeof userSchema>;

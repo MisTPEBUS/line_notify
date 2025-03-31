@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import handleErrorAsync from '../middleware/handleErrorAsync';
 
-import axios from 'axios';
 import { UserRepo } from '../repo/user.repo';
 import { Success } from '../utils/appResponse';
-import { sendMsgService, sendMsgServiceV2 } from '../service/lineService';
+import { sendMsgServiceV2 } from '../service/lineService';
 
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
