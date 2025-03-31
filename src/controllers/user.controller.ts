@@ -49,6 +49,8 @@ export const UserController = {
     //201;
     try {
       const newUser = await UserRepo.createUser({ ...data });
+      console.log(data.userId);
+      console.log(data.channelId);
       sendMsgServiceV2(data.userId, data.channelId, msgResponse.REGISTER);
       Success(res, newUser);
     } catch (error) {
