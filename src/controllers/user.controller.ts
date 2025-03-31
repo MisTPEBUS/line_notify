@@ -33,7 +33,6 @@ export const UserController = {
     console.log(condition);
 
     const msgGroup = await UserRepo.findUsersByField({ company: cmpName, channelId, dept, job, empId });
-
     Success(res, msgGroup);
   }),
 

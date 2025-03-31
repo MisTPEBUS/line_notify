@@ -7,6 +7,7 @@ import Router from './routers/index';
 import { AppError, NotFound } from './utils/appResponse';
 import logger from './utils/logger';
 import bodyParser from 'body-parser';
+import axios from 'axios';
 
 const app: Application = express();
 // Express Middlewares
@@ -15,6 +16,31 @@ app.use(cors());
 app.use(express.urlencoded({ limit: '25mb', extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
+
+app.use('/proxy/*', async (req, res) => {
+  try {
+    const targetPath = req.originalUrl.replace('/proxy', ''); // 例如 /v1/api/lineHook
+    const targetURL = `https://line-notify-18ab.onrender.com${targetPath}`;
+
+    const response = await axios({
+      method: req.method,
+      url: targetURL,
+      headers: {
+        ...req.headers,
+        host: 'line-notify-18ab.onrender.com',
+      },
+      data: req.body,
+    });
+
+    res.status(response.status).send(response.data);
+  } catch (err) {
+    console.error('[Proxy error]', err);
+    res.status(500).send({
+      error: 'Proxy failed',
+      detail: err,
+    });
+  }
+});
 
 // Root Route
 app.use('/v1/api/lineHook', Router);
