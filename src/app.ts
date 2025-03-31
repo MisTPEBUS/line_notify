@@ -27,7 +27,6 @@ app.use('/proxy/*', async (req, res) => {
       url: targetURL,
       headers: {
         ...req.headers,
-        host: 'line-notify-18ab.onrender.com',
       },
       data: req.body,
     });
