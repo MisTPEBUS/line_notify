@@ -32,7 +32,7 @@ export const UserController = {
     if (empId) condition = condition + `empId = ${empId};`;
     console.log(condition);
 
-    const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
+    const msgGroup = await UserRepo.findUsersByField({ company: cmpName, channelId, dept, job, empId });
 
     Success(res, msgGroup);
   }),
