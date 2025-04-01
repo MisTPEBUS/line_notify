@@ -1,5 +1,6 @@
 import { MsgRecord } from '@prisma/client';
 import prisma from '../prisma';
+import { getUTC8DateTime } from '../utils/tools/dateToole';
 
 export type msgRecords = MsgRecord;
 
@@ -40,9 +41,11 @@ export const MsgRecordsRepo = {
    * @param data 要新增的 User 資料
    */
   createMsgRecords: async (data: createMsgRecords): Promise<msgRecords> => {
+    const dateNow = getUTC8DateTime().formatted;
     return await prisma.msgRecord.create({
       data: {
         ...data,
+        sendAt: dateNow,
       },
     });
   },

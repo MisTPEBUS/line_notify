@@ -40,9 +40,10 @@ model MsgRecord {
   id        String   @id @default(uuid()) // UUID primary key
   company   String
   user_id   String   // 確保與 User.id 保持一致
-  groupCode String  ?
+  groupCode String?
   message   String
   status    String   
+  sendAt   String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
 }
 

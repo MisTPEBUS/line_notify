@@ -9,8 +9,9 @@ import { ErrorCode, ErrorStatus } from '../utils/errorCode';
 
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { company, dept, job, empId, message, requireConfirmation, channelId } = req.body;
+    const { company, dept, job, empId, message, requireConfirmation, channelId, groupCode } = req.body;
     // 依據條件取得目標成員資料
+
     let condition = '';
     const cmpName = company === 'T' ? '臺北客運' : company === 'C' ? '首都客運' : '';
     if (company) condition = `company = ${cmpName};`;
@@ -31,6 +32,7 @@ export const sendMsgController = {
           company: cmpName,
           user_id: user.userId,
           message,
+          groupCode: groupCode ?? '營收通知系統',
           status: ErrorStatus[ErrorCode.SUCCESS],
         });
         successCount++;
