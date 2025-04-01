@@ -24,7 +24,7 @@ model User {
 
   // 設定 User 與 RoadRecord / MsgRecord 的一對多關聯
   roadRecords RoadRecord[] @relation("UserRoadRecords")
-  messages    MsgRecord[]  @relation("UserMessages")
+ 
 }
 
 model Dept {
@@ -38,14 +38,12 @@ model Dept {
 
 model MsgRecord {
   id        String   @id @default(uuid()) // UUID primary key
+  company   String
   user_id   String   // 確保與 User.id 保持一致
-  groupCode String?
+  groupCode String  ?
   message   String
-  status    String
+  status    String   
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
-
-  // 修正關聯，讓 MsgRecord 正確指向 User
-  user      User @relation("UserMessages", fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model RoadRecord {

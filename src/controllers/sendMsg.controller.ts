@@ -4,6 +4,8 @@ import handleErrorAsync from '../middleware/handleErrorAsync';
 import { UserRepo } from '../repo/user.repo';
 import { Success } from '../utils/appResponse';
 import { sendMsgServiceV2 } from '../service/lineService';
+import { MsgRecordsRepo } from '../repo/msgRecord.repo';
+import { ErrorCode, ErrorStatus } from '../utils/errorCode';
 
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -25,9 +27,21 @@ export const sendMsgController = {
       try {
         // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
         await sendMsgServiceV2(user.userId, user.channelId, message);
+        await MsgRecordsRepo.createMsgRecords({
+          company: cmpName,
+          user_id: user.userId,
+          message,
+          status: ErrorStatus[ErrorCode.SUCCESS],
+        });
         successCount++;
       } catch (error) {
         console.error(`發送訊息給 ${user.userId} 失敗`, error);
+        await MsgRecordsRepo.createMsgRecords({
+          company: cmpName,
+          user_id: user.userId,
+          message,
+          status: ErrorStatus[ErrorCode.BAD_REQUEST],
+        });
         failMember.push(user.name);
       }
     }

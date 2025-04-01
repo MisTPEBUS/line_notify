@@ -12,8 +12,8 @@ export const ErrorMessage = {
 };
 
 export const ErrorStatus = {
-  [ErrorCode.SUCCESS]: 'success',
-  [ErrorCode.BAD_REQUEST]: 'failed',
-  [ErrorCode.CONFLICT]: 'failed',
-  [ErrorCode.INTERNAL_SERVER_ERROR]: 'error',
+  [ErrorCode.SUCCESS]: '成功',
+  [ErrorCode.BAD_REQUEST]: '送出失敗',
+  [ErrorCode.CONFLICT]: '新增失敗',
+  [ErrorCode.INTERNAL_SERVER_ERROR]: 'server error',
 };
