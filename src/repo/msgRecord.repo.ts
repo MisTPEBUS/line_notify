@@ -6,10 +6,7 @@ export type msgRecords = MsgRecord;
 
 export interface msgRecordsFilters {
   company?: string;
-  dept?: string;
-  empId?: string;
-  job?: string;
-  channelId?: string;
+  sendAt?: string;
 }
 
 export type createMsgRecords = {
@@ -25,13 +22,23 @@ export const MsgRecordsRepo = {
    * @param id User 的 id
    */
   findMsgRecordsByField: async (filters: msgRecordsFilters): Promise<msgRecords[]> => {
-    // 建立動態查詢條件
     const query: Record<string, any> = {};
-    if (filters.company) query.company = filters.company;
-    if (filters.dept) query.dept = filters.dept;
-    if (filters.empId) query.empId = filters.empId;
-    if (filters.job) query.job = filters.job;
-    if (filters.channelId) query.channelId = filters.channelId;
+
+    if (filters.company) {
+      query.company = filters.company;
+    }
+
+    if (filters.sendAt) {
+      const startOfDay = new Date(filters.sendAt);
+      const endOfDay = new Date(filters.sendAt);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      query.sendAt = {
+        gte: startOfDay,
+        lte: endOfDay,
+      };
+    }
+
     return await prisma.msgRecord.findMany({
       where: query,
     });

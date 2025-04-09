@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { createUserType } from '../repo/user.repo';
-import { msgResponse } from '../utils/msgResponse';
+import { createUserType } from '../../repo/user.repo';
+import { msgResponse } from '../msgResponse';
 
 export const sendMsgService = async (user: createUserType, company: string, msg?: string) => {
   let token =

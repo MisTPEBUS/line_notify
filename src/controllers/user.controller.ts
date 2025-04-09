@@ -4,7 +4,7 @@ import { Success, appError } from '../utils/appResponse';
 import logger from '../utils/logger';
 
 import { CheckUserType, UserRepo, createUserType } from '../repo/user.repo';
-import { sendMsgServiceV2 } from '../service/lineService';
+import { sendMsgServiceV2 } from '../utils/service/lineService';
 import { msgResponse } from '../utils/msgResponse';
 
 export const UserController = {
