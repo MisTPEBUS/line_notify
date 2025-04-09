@@ -3,9 +3,10 @@ import handleErrorAsync from '../middleware/handleErrorAsync';
 
 import { UserRepo } from '../repo/user.repo';
 import { Success } from '../utils/appResponse';
-import { sendMsgServiceV2 } from '../service/lineService';
+import { sendMsgServiceV2 } from '../utils/service/lineService';
 import { MsgRecordsRepo } from '../repo/msgRecord.repo';
 import { ErrorCode, ErrorStatus } from '../utils/errorCode';
+import { getUTC8DateTime } from '../utils/tools/dateToole';
 
 export const sendMsgController = {
   sendMsg: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -55,5 +56,18 @@ export const sendMsgController = {
       successCount,
       failMember,
     });
+  }),
+  getAll: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const dateNow = getUTC8DateTime();
+    const sendAt =
+      (req.query.sendAt as string) ??
+      `${dateNow.year}-${dateNow.month}-${dateNow.date} ${dateNow.hour}:${dateNow.minute}`;
+    const company = req.query.company as string;
+
+    const filterData = await MsgRecordsRepo.findMsgRecordsByField({
+      company,
+      sendAt,
+    });
+    Success(res, filterData);
   }),
 };
