@@ -16,6 +16,6 @@ export function getUTC8DateTime() {
     date,
     hour,
     minute,
-    formatted: `${year}-${month} ${hour}:${minute}`,
+    formatted: `${year}-${month}-${date} ${hour}:${minute}`,
   };
 }

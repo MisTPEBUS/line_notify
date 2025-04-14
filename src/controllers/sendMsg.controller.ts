@@ -30,7 +30,7 @@ export const sendMsgController = {
         // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
         await sendMsgServiceV2(user.userId, user.channelId, message);
         await MsgRecordsRepo.createMsgRecords({
-          company: cmpName,
+          company: user.company,
           user_id: user.userId,
           message,
           groupCode: groupCode ?? '營收通知系統',
