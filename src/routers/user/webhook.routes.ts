@@ -79,7 +79,7 @@ const replyWithSalaryCard = async (replyToken: string) => {
   );
 };
 
-webhookRouter.post('/webhook', async (req, res, _next: NextFunction) => {
+webhookRouter.post('/', async (req, res, _next: NextFunction) => {
   const events = req.body.events;
 
   for (const event of events) {
