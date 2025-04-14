@@ -30,9 +30,16 @@ const replyWithSalaryCard = async (replyToken: string) => {
         contents: [
           {
             type: 'text',
-            text: '薪資單 PDF 測試',
+            text: '3月薪資單 PDF 測試',
             weight: 'bold',
             size: 'lg',
+            wrap: true,
+          },
+          {
+            type: 'text',
+            text: '資訊中心－Lobinda',
+            size: 'sm',
+            color: '#999999',
             wrap: true,
           },
           {
