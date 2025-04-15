@@ -68,52 +68,36 @@ const salaryCardMessage = {
 };
 
 // 2️⃣ 三個月份按鈕（Quick Reply 版本）
-const monthSelectorFlex = {
-  type: 'flex',
-  altText: '請選擇查詢月份',
-  contents: {
-    type: 'bubble',
-    body: {
-      type: 'box',
-      layout: 'vertical',
-      spacing: 'md',
-      contents: [
-        {
-          type: 'text',
-          text: '請選擇想查詢的月份 👇',
-          weight: 'bold',
-          size: 'md',
-          wrap: true,
+const monthSelectorMessage = {
+  type: 'text',
+  text: '請選擇想查詢的月份 👇',
+  quickReply: {
+    items: [
+      {
+        type: 'action',
+        action: {
+          type: 'message',
+          label: '三月',
+          text: '/薪資查詢 三月',
         },
-        {
-          type: 'button',
-          style: 'secondary',
-          action: {
-            type: 'message',
-            label: '三月',
-            text: '/薪資查詢 三月',
-          },
+      },
+      {
+        type: 'action',
+        action: {
+          type: 'message',
+          label: '二月',
+          text: '/薪資查詢 二月',
         },
-        {
-          type: 'button',
-          style: 'secondary',
-          action: {
-            type: 'message',
-            label: '二月',
-            text: '/薪資查詢 二月',
-          },
+      },
+      {
+        type: 'action',
+        imageUrl: 'https://storage.googleapis.com/你的icon連結.png',
+        action: {
+          type: 'location',
+          label: '傳送位置',
         },
-        {
-          type: 'button',
-          style: 'secondary',
-          action: {
-            type: 'message',
-            label: '一月',
-            text: '/薪資查詢 一月',
-          },
-        },
-      ],
-    },
+      },
+    ],
   },
 };
 
@@ -129,7 +113,7 @@ webhookRouter.post('/', async (req, res, _next: NextFunction) => {
         LINE_API,
         {
           replyToken,
-          messages: [salaryCardMessage, monthSelectorFlex],
+          messages: [salaryCardMessage, monthSelectorMessage],
         },
         {
           headers: {
