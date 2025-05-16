@@ -132,16 +132,10 @@ export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: 
 
   const flexMessage = {
     type: 'flex',
-    altText: '薪資單 PDF 測試',
+    altText: '營收比對信息通知',
     contents: {
       type: 'bubble',
-      hero: {
-        type: 'image',
-        url: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-        size: 'full',
-        aspectRatio: '16:9',
-        aspectMode: 'cover',
-      },
+
       body: {
         type: 'box',
         layout: 'vertical',
@@ -149,21 +143,22 @@ export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: 
         contents: [
           {
             type: 'text',
-            text: '3月薪資單 PDF 測試',
+            text: '系統通知',
             weight: 'bold',
             size: 'lg',
             wrap: true,
           },
           {
             type: 'text',
-            text: '資訊中心－Lobinda',
-            size: 'sm',
-            color: '#999999',
+            text: '營收未比對',
+            size: 'md',
+            weight: 'bold',
+            color: '#FF5555',
             wrap: true,
           },
           {
             type: 'text',
-            text: '密碼：abcd1234',
+            text: '台北客運－三峽一站',
             size: 'sm',
             color: '#999999',
             wrap: true,
@@ -180,7 +175,7 @@ export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: 
             style: 'secondary',
             action: {
               type: 'postback',
-              label: '我已確認',
+              label: '點我回報確認',
               data: `action=confirm_report&channelId=${channelId}`,
             },
           },

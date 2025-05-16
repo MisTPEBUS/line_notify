@@ -77,8 +77,9 @@ export const sendMsgController = {
       for (const user of msgGroup) {
         try {
           // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
+          await sendMsgServiceV2(user.userId, user.channelId, message);
           if (type === 'notify') {
-            await sendMsgServiceV4(user.userId, user.channelId, message);
+            await sendMsgServiceV4(user);
           } else {
             await sendMsgServiceV3(user.userId, user.channelId, message);
           }
