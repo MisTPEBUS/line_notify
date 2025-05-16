@@ -1,10 +1,21 @@
 import { NextFunction, Router } from 'express';
 import axios from 'axios';
+import line from '@line/bot-sdk';
 
 const webhookRouter = Router();
 
 const LINE_API = 'https://api.line.me/v2/bot/message/reply';
 const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
+
+import { Client, middleware } from '@line/bot-sdk';
+
+export const lineConfig = {
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN_TP!,
+  channelSecret: process.env.LINE_CHANNEL_SECRET_TP!,
+};
+
+export const lineClient = new Client(lineConfig);
+export const lineMiddleware = middleware(lineConfig);
 
 // 1️⃣ 薪資卡片
 const salaryCardMessage = {
@@ -122,6 +133,25 @@ webhookRouter.post('/', async (req, res, _next: NextFunction) => {
           },
         },
       );
+    }
+    if (event.type === 'postback') {
+      const { data } = event.postback; // e.g., action=confirm_report&channelId=xyz
+      const replyToken = event.replyToken;
+
+      const params = new URLSearchParams(data);
+      const action = params.get('action');
+      const channelId = params.get('channelId');
+
+      if (action === 'confirm_report') {
+        // ✅ 執行資料庫更新
+        //  await updateRevenueCheck(channelId); // 假設你有這個函式
+
+        // ✅ 回覆用戶確認訊息
+        await lineClient.replyMessage(replyToken, {
+          type: 'text',
+          text: '✅ 已收到您的確認，感謝回報！',
+        });
+      }
     }
   }
 
