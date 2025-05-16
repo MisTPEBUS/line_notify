@@ -127,12 +127,19 @@ export const sendMsgServiceV3 = async (userId: string, channelId: string, msg?: 
     },
   });
 };
-export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: string) => {
+export const sendMsgServiceV4 = async (
+  userId: string,
+  channelId: string,
+  msg: string = '',
+  cmpName: string,
+  deptName: string,
+  title: string = '',
+) => {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
 
   const flexMessage = {
     type: 'flex',
-    altText: '營收比對信息通知',
+    altText: `${title}通知`,
     contents: {
       type: 'bubble',
 
@@ -150,7 +157,7 @@ export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: 
           },
           {
             type: 'text',
-            text: '營收未比對',
+            text: `${title}`,
             size: 'md',
             weight: 'bold',
             color: '#FF5555',
@@ -158,7 +165,7 @@ export const sendMsgServiceV4 = async (userId: string, channelId: string, msg?: 
           },
           {
             type: 'text',
-            text: '台北客運－三峽一站',
+            text: `${cmpName}-${deptName}`,
             size: 'sm',
             color: '#999999',
             wrap: true,

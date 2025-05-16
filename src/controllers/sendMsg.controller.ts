@@ -79,7 +79,7 @@ export const sendMsgController = {
           // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
           await sendMsgServiceV2(user.userId, user.channelId, message);
           if (type === 'notify') {
-            await sendMsgServiceV4(user);
+            await sendMsgServiceV4(user.userId, user.channelId, message, user.company, dept, '營收比對');
           } else {
             await sendMsgServiceV3(user.userId, user.channelId, message);
           }
