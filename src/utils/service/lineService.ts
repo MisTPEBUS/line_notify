@@ -150,14 +150,14 @@ export const sendMsgServiceV4 = async (
         contents: [
           {
             type: 'text',
-            text: '系統通知',
+            text: `${title} 系統通知`,
             weight: 'bold',
             size: 'lg',
             wrap: true,
           },
           {
             type: 'text',
-            text: `${title}`,
+            text: `請蘸上進行營收比對並回報`,
             size: 'md',
             weight: 'bold',
             color: '#FF5555',
