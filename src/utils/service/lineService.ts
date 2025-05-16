@@ -150,6 +150,13 @@ export const sendMsgServiceV4 = async (
         contents: [
           {
             type: 'text',
+            text: '2025-05-16 14:30', // <-- 時間欄位
+            size: 'xs',
+            color: '#999999',
+            align: 'end',
+          },
+          {
+            type: 'text',
             text: `${title} 系統通知`,
             weight: 'bold',
             size: 'lg',
@@ -157,7 +164,7 @@ export const sendMsgServiceV4 = async (
           },
           {
             type: 'text',
-            text: `請蘸上進行營收比對並回報`,
+            text: `請站上進行營收比對並回報`,
             size: 'md',
             weight: 'bold',
             color: '#FF5555',
