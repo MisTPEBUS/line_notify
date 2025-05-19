@@ -8,23 +8,22 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) // UUID primary key
-  company   String
-  groupCode String?
-  phone     String?
-  job       String?
-  dept      String
+  id          String   @id @default(uuid()) // UUID primary key
+  company     String
+  groupCode   String?
+  phone       String?
+  job         String?
+  dept        String?
   notify_dept String[]
-  empId     String
-  name      String
-  channelId String
-  userId    String   
+  empId       String
+  name        String
+  channelId   String
+  userId      String
 
-  insertAt  DateTime @default(now()) @map("insert_at") @db.Timestamp(6)
+  insertAt DateTime @default(now()) @map("insert_at") @db.Timestamp(6)
 
   // 設定 User 與 RoadRecord / MsgRecord 的一對多關聯
   roadRecords RoadRecord[] @relation("UserRoadRecords")
- 
 }
 
 model Dept {
@@ -37,31 +36,33 @@ model Dept {
 }
 
 model MsgRecord {
-  id        String   @id @default(uuid()) // UUID primary key
-  company   String
-  user_id   String   // 確保與 User.id 保持一致
-  groupCode String?
-  message   String
-  status    String   
-  sendAt   String
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  id           String    @id @default(uuid()) // UUID primary key
+  company      String
+  dept         String
+  has_reported Boolean   @default(false)
+  reported_at  DateTime?
+  user_id      String // 確保與 User.id 保持一致
+  groupCode    String?
+  message      String
+  status       String
+  sendAt       String
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
 }
 
 model RoadRecord {
-  id        String   @id @default(uuid()) 
-  userId    String   // 修正，確保與 User.id 一致
+  id        String   @id @default(uuid())
+  userId    String // 修正，確保與 User.id 一致
   groupCode String?
   company   String
   channelId String
   status    String?
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
- 
-  lineName  String
-  carNo     String
-  score     String[] // 存儲多個評分項目
+
+  lineName String
+  carNo    String
+  score    String[] // 存儲多個評分項目
 
   // 修正關聯，讓 RoadRecord 正確指向 User
-   user_id   String
-  user      User @relation("UserRoadRecords", fields: [user_id], references: [id], onDelete: Cascade)
+  user_id String
+  user    User   @relation("UserRoadRecords", fields: [user_id], references: [id], onDelete: Cascade)
 }
-

@@ -14,7 +14,7 @@ export const sendMsgController = {
     // 依據條件取得目標成員資料
 
     let condition = '';
-    const cmpName = company === 'T' ? '臺北客運' : company === 'C' ? '首都客運' : '';
+    const cmpName = company ?? '';
     if (company) condition = `company = ${cmpName};`;
     if (dept) condition = condition + `dept = ${dept};`;
     if (job) condition = condition + `job = ${job};`;
@@ -29,20 +29,23 @@ export const sendMsgController = {
       try {
         // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
         await sendMsgServiceV2(user.userId, user.channelId, message);
-        await MsgRecordsRepo.createMsgRecords({
+        await MsgRecordsRepo.createMsgRecord({
           company: user.company,
           user_id: user.userId,
-          message,
           groupCode: groupCode ?? '營收通知系統',
+          message,
+          dept: user.dept,
+
           status: ErrorStatus[ErrorCode.SUCCESS],
         });
         successCount++;
       } catch (error) {
         console.error(`發送訊息給 ${user.userId} 失敗`, error);
-        await MsgRecordsRepo.createMsgRecords({
+        await MsgRecordsRepo.createMsgRecord({
           company: cmpName,
           user_id: user.userId,
           message,
+          dept: user.dept,
           status: ErrorStatus[ErrorCode.BAD_REQUEST],
         });
         failMember.push(user.name);
@@ -84,9 +87,10 @@ export const sendMsgController = {
             await sendMsgServiceV3(user.userId, user.channelId, message);
           }
 
-          await MsgRecordsRepo.createMsgRecords({
+          await MsgRecordsRepo.createMsgRecord({
             company: user.company,
             user_id: user.userId,
+            dept: user.dept,
             message: '薪資單測試',
             groupCode: groupCode ?? 'PDF讀取測試',
             status: ErrorStatus[ErrorCode.SUCCESS],
@@ -94,8 +98,9 @@ export const sendMsgController = {
           successCount++;
         } catch (error) {
           console.error(`發送訊息給 ${user.userId} 失敗`, error);
-          await MsgRecordsRepo.createMsgRecords({
+          await MsgRecordsRepo.createMsgRecord({
             company: cmpName,
+            dept: user.dept,
             user_id: user.userId,
             message,
             status: ErrorStatus[ErrorCode.BAD_REQUEST],
