@@ -91,6 +91,7 @@ export const MsgRecordsRepo = {
     const endOfDay = new Date(dateNow);
     endOfDay.setHours(23, 59, 59, 999);
 
+    console.log('updateData', data);
     return await prisma.msgRecord.updateMany({
       where: {
         user_id: data.user_id,
