@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createUserType } from '../../repo/user.repo';
 import { msgResponse } from '../msgResponse';
-
+import { format } from 'date-fns';
 export const sendMsgService = async (user: createUserType, company: string, msg?: string) => {
   let token =
     company === 'T' ? (process.env.LINE_CHANNEL_ACCESS_TOKEN_TP ? process.env.LINE_CHANNEL_ACCESS_TOKEN_CP : '') : '';
@@ -136,7 +136,10 @@ export const sendMsgServiceV4 = async (
   title: string = '',
 ) => {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
+  const now = new Date(); // 或你自己的日期
+  const formatted = format(now, 'yyyy-MM-dd HH:mm');
 
+  console.log(formatted);
   const flexMessage = {
     type: 'flex',
     altText: `${title}通知`,
@@ -150,7 +153,7 @@ export const sendMsgServiceV4 = async (
         contents: [
           {
             type: 'text',
-            text: '2025-05-16 14:30', // <-- 時間欄位
+            text: `${formatted}`, // <-- 時間欄位
             size: 'xs',
             color: '#999999',
             align: 'end',
