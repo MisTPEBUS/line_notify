@@ -8,6 +8,7 @@ const LINE_API = 'https://api.line.me/v2/bot/message/reply';
 const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
 
 import { Client, middleware } from '@line/bot-sdk';
+import { MsgRecordsRepo } from '../../repo/msgRecord.repo';
 
 export const lineConfig = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN_TP!,
@@ -114,7 +115,7 @@ const monthSelectorMessage = {
 
 webhookRouter.post('/', async (req, res, _next: NextFunction) => {
   const events = req.body.events;
-
+  console.log('event', events);
   for (const event of events) {
     const message = event.message?.text;
     const replyToken = event.replyToken;
@@ -144,8 +145,15 @@ webhookRouter.post('/', async (req, res, _next: NextFunction) => {
 
       if (action === 'confirm_report') {
         // ✅ 執行資料庫更新
-        //  await updateRevenueCheck(channelId); // 假設你有這個函式
+        /*  try {
+          // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
+          await MsgRecordsRepo.updateMsgRecord({});
+        } catch (error) {
+          console.error(`發送訊息給 ${user.userId} 失敗`, error);
 
+          failMember.push(user.name);
+        }
+ */
         // ✅ 回覆用戶確認訊息
         await lineClient.replyMessage(replyToken, {
           type: 'text',
