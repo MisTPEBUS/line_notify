@@ -142,18 +142,23 @@ webhookRouter.post('/', async (req, res, _next: NextFunction) => {
       const params = new URLSearchParams(data);
       const action = params.get('action');
       const channelId = params.get('channelId');
+      const system = params.get('system');
+      const company = params.get('company');
+      const dept = params.get('dept');
+      const userId = event.source?.userId;
 
       if (action === 'confirm_report') {
         // ✅ 執行資料庫更新
-        /*  try {
+        try {
           // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
-          await MsgRecordsRepo.updateMsgRecord({});
+          await MsgRecordsRepo.updateMsgRecord({
+            user_id: userId,
+            groupCode: system,
+          });
         } catch (error) {
-          console.error(`發送訊息給 ${user.userId} 失敗`, error);
-
-          failMember.push(user.name);
+          console.error(`發送訊息給 ${userId} 失敗`, error);
         }
- */
+
         // ✅ 回覆用戶確認訊息
         await lineClient.replyMessage(replyToken, {
           type: 'text',

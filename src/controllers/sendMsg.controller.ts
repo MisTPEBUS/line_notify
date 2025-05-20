@@ -86,7 +86,6 @@ export const sendMsgController = {
           } else {
             await sendMsgServiceV3(user.userId, user.channelId, message);
           }
-
           await MsgRecordsRepo.createMsgRecord({
             company: user.company,
             user_id: user.userId,

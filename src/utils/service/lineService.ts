@@ -190,7 +190,7 @@ export const sendMsgServiceV4 = async (
             action: {
               type: 'postback',
               label: '點我回報確認',
-              data: `action=confirm_report&channelId=${channelId}`,
+              data: `action=confirm_report&channelId=${channelId}&system=${title}&company=${cmpName}&dept=${deptName}&userId=${userId}`,
             },
           },
         ],
