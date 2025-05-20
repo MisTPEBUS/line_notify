@@ -32,7 +32,7 @@ export const sendMsgController = {
         await MsgRecordsRepo.createMsgRecord({
           company: user.company,
           user_id: user.userId,
-          groupCode: groupCode ?? '營收通知系統',
+          groupCode: groupCode ?? '營收訊息通報',
           message,
           dept: user.dept,
 
@@ -72,7 +72,7 @@ export const sendMsgController = {
       if (job) condition = condition + `job = ${job};`;
       if (empId) condition = condition + `empId = ${empId};`;
 
-      const msgGroup = await UserRepo.findUsersByField({ channelId, dept, job, empId });
+      const msgGroup = await UserRepo.findUsersByField({ company: cmpName, channelId, dept, job, empId });
       let successCount: number = 0;
       let failMember: string[] = [];
       console.log(msgGroup);
@@ -137,6 +137,7 @@ export const sendMsgController = {
       company?: string;
       system?: string;
     };
+    const input = req.query.date as string;
 
     const filterData = await MsgRecordsRepo.getMsgRecordsByDate(query.date as string);
     Success(res, filterData);

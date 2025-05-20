@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import logger from './logger';
 import { ErrorCode, ErrorStatus } from './errorCode';
+import prisma from '../prisma';
 
 export const delSuccess = (res: Response, status = 200): Response => {
+  prisma.$disconnect();
   return res.status(status).json({
     status: 'success',
   });
@@ -20,6 +22,7 @@ export const delSuccess = (res: Response, status = 200): Response => {
  */
 export const Success = <T>(res: Response, data: T, status = 200): Response => {
   console.log(status);
+  prisma.$disconnect();
   return res.status(status).json(data);
 };
 /**
@@ -32,6 +35,7 @@ export const Success = <T>(res: Response, data: T, status = 200): Response => {
  */
 export const NotFound = (req: Request, res: Response) => {
   logger.error(`404 :${req.path}`);
+  prisma.$disconnect();
   res.status(404).json({
     message: '查無此路由，請確認 API 格式!',
   });
@@ -57,6 +61,6 @@ export const appError = (errMessage: string, next: NextFunction, httpStatus = 40
   error.statusCode = httpStatus;
   error.isOperational = true;
   error.status = httpStatus == 500 ? ErrorStatus[ErrorCode.INTERNAL_SERVER_ERROR] : ErrorStatus[ErrorCode.BAD_REQUEST];
-
+  prisma.$disconnect();
   next(error);
 };

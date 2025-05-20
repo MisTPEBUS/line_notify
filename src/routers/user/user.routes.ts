@@ -15,7 +15,8 @@ userRouter.post('/', validateData(createUserRequestSchema, 'body'), UserControll
 userRouter.delete('/:channelId/:userId', validateData(isCheckRequestSchema, 'params'), UserController.deleteUser);
 
 userRouter.post('/getUsers', UserController.getAllFilter);
-userRouter.post('/sendMsgToGroup', sendMsgController.sendMsg);
+//userRouter.post('/sendMsgToGroup', sendMsgController.sendMsg);
+userRouter.post('/sendMsgToGroup', sendMsgController.sendMsgByCard('notify'));
 userRouter.post('/sendPDFCard', sendMsgController.sendMsgByCard);
 userRouter.post('/sendNotifyCard', sendMsgController.sendMsgByCard('notify'));
 /*
