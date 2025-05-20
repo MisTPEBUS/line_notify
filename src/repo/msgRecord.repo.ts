@@ -101,7 +101,7 @@ export const MsgRecordsRepo = {
         },
       },
       data: {
-        reported_at: dateNow,
+        reported_at: new Date(dateNow),
         has_reported: true,
       },
     });
