@@ -109,8 +109,8 @@ export const MsgRecordsRepo = {
   /**
    * 取資料
    */
-  getMsgRecordsByDate: async (dateString: string): Promise<msgRecords[]> => {
-    const inputDate = new Date(dateString); // 例如 '2025-05-19'
+  getMsgRecordsByDate: async (date: string): Promise<msgRecords[]> => {
+    const inputDate = new Date(date); // 例如 '2025-05-19'
 
     const startOfDay = new Date(inputDate);
     startOfDay.setHours(0, 0, 0, 0);

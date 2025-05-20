@@ -128,4 +128,17 @@ export const sendMsgController = {
     });
     Success(res, filterData);
   }),
+  getAllByDate: handleErrorAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { date } = req.query;
+
+    // 你也可以明確指定型別：
+    const query = req.query as {
+      date?: string;
+      company?: string;
+      system?: string;
+    };
+
+    const filterData = await MsgRecordsRepo.getMsgRecordsByDate(query.date as string);
+    Success(res, filterData);
+  }),
 };

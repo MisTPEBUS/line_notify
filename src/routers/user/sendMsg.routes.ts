@@ -6,6 +6,7 @@ import { sendMsgQuerySchema } from '../../Validation/sendMsg.dto';
 
 const sendMsgRouter = Router();
 
-sendMsgRouter.get('/', validateData(sendMsgQuerySchema, 'query'), sendMsgController.getAll);
+/* sendMsgRouter.get('/', validateData(sendMsgQuerySchema, 'query'), sendMsgController.getAll); */
+sendMsgRouter.get('/', validateData(sendMsgQuerySchema, 'query'), sendMsgController.getAllByDate);
 
 export default sendMsgRouter;
