@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createUserType } from '../../repo/user.repo';
 import { msgResponse } from '../msgResponse';
 import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 export const sendMsgService = async (user: createUserType, company: string, msg?: string) => {
   let token =
     company === 'T' ? (process.env.LINE_CHANNEL_ACCESS_TOKEN_TP ? process.env.LINE_CHANNEL_ACCESS_TOKEN_CP : '') : '';
@@ -137,7 +138,7 @@ export const sendMsgServiceV4 = async (
 ) => {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
   const now = new Date(); // 或你自己的日期
-  const formatted = format(now, 'yyyy-MM-dd HH:mm');
+  const formatted = formatInTimeZone(now, 'Asia/Taipei', 'yyyy-MM-dd HH:mm');
 
   const flexMessage = {
     type: 'flex',
