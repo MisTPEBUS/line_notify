@@ -151,10 +151,12 @@ webhookRouter.post('/', async (req, res, _next: NextFunction) => {
         // ✅ 執行資料庫更新
         try {
           // 假設 sendMsgToUser 為發送訊息給單一使用者的 service 函式
-          await MsgRecordsRepo.updateMsgRecord({
+
+          const res = await MsgRecordsRepo.updateMsgRecord({
             user_id: userId,
             groupCode: system,
           });
+          console.log(res);
         } catch (error) {
           console.error(`發送訊息給 ${userId} 失敗`, error);
         }
