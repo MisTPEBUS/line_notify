@@ -139,13 +139,11 @@ export const sendMsgServiceV4 = async (
   const now = new Date(); // 或你自己的日期
   const formatted = format(now, 'yyyy-MM-dd HH:mm');
 
-  console.log(formatted);
   const flexMessage = {
     type: 'flex',
     altText: `${title}通知`,
     contents: {
       type: 'bubble',
-
       body: {
         type: 'box',
         layout: 'vertical',

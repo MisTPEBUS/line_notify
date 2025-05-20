@@ -66,7 +66,7 @@ export const sendMsgController = {
       // 依據條件取得目標成員資料
 
       let condition = '';
-      const cmpName = company === 'T' ? '臺北客運' : company === 'C' ? '首都客運' : '';
+      const cmpName = company ?? '';
       if (company) condition = `company = ${cmpName};`;
       if (dept) condition = condition + `dept = ${dept};`;
       if (job) condition = condition + `job = ${job};`;
@@ -90,8 +90,8 @@ export const sendMsgController = {
             company: user.company,
             user_id: user.userId,
             dept: user.dept,
-            message: '薪資單測試',
-            groupCode: groupCode ?? 'PDF讀取測試',
+            message: message,
+            groupCode: groupCode ?? '營收訊息通報',
             status: ErrorStatus[ErrorCode.SUCCESS],
           });
           successCount++;
