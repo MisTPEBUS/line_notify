@@ -149,57 +149,29 @@ export const sendMsgServiceV4 = async (
         type: 'box',
         layout: 'baseline',
         contents: [
-          // 頂部 Row: Icon + 系統通知 / 日期
           {
-            type: 'box',
-            layout: 'horizontal',
-            contents: [
-              {
-                type: 'box',
-                layout: 'baseline',
-                contents: [
-                  {
-                    type: 'icon',
-                    url: 'https://example.com/icon.png', // 可替換成系統圖示 URL
-                    size: 'sm',
-                  },
-                  {
-                    type: 'text',
-                    text: `${title} 通知`,
-                    weight: 'bold',
-                    size: 'sm',
-                    margin: 'sm',
-                    flex: 0,
-                  },
-                ],
-                flex: 1,
-              },
-              {
-                type: 'text',
-                text: `${formatted}`,
-                size: 'xs',
-                color: '#999999',
-                align: 'end',
-                gravity: 'center',
-              },
-            ],
+            type: 'text',
+            text: `${title} `,
+            weight: 'bold',
+            size: 'xs',
+            align: 'start',
+            wrap: false,
           },
-          // 主內容文字
+          {
+            type: 'text',
+            text: `${formatted}`, // <-- 時間欄位
+            size: 'xs',
+            color: '#999999',
+            align: 'end',
+          },
+
           {
             type: 'text',
             text: msg,
             size: 'md',
-            weight: 'bold',
             wrap: true,
           },
-          {
-            type: 'text',
-            text: `請站上進行營收比對並回報`,
-            size: 'md',
-            weight: 'bold',
-            color: '#FF5555',
-            wrap: true,
-          },
+
           {
             type: 'text',
             text: `${cmpName}-${deptName}`,
