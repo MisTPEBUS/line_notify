@@ -142,20 +142,25 @@ export const sendMsgServiceV4 = async (
 
   const flexMessage = {
     type: 'flex',
+    styles: {
+      header: {
+        backgroundColor: '#ffaaaa',
+      },
+    },
     altText: `${title}通知`,
     contents: {
       type: 'bubble',
-      body: {
+      header: {
         type: 'box',
-        layout: 'baseline',
+        layout: 'vertical',
         contents: [
           {
             type: 'text',
-            text: `${title} `,
+            text: `${title} 系統通知`,
             weight: 'bold',
             size: 'xs',
             align: 'start',
-            wrap: false,
+            wrap: true,
           },
           {
             type: 'text',
@@ -164,14 +169,28 @@ export const sendMsgServiceV4 = async (
             color: '#999999',
             align: 'end',
           },
-
+        ],
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'md',
+        contents: [
           {
             type: 'text',
             text: msg,
             size: 'md',
+            weight: 'bold',
             wrap: true,
           },
-
+          {
+            type: 'text',
+            text: `請站上進行營收比對並回報`,
+            size: 'md',
+            weight: 'bold',
+            color: '#FF5555',
+            wrap: true,
+          },
           {
             type: 'text',
             text: `${cmpName}-${deptName}`,
