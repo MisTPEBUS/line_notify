@@ -150,6 +150,14 @@ export const sendMsgServiceV4 = async (
         layout: 'vertical',
         spacing: 'md',
         contents: [
+          /* {
+            type: 'text',
+            text: `${title} `,
+            weight: 'bold',
+            size: 'xs',
+            align: 'start',
+            wrap: false,
+          }, */
           {
             type: 'text',
             text: `${formatted}`, // <-- 時間欄位
@@ -157,17 +165,11 @@ export const sendMsgServiceV4 = async (
             color: '#999999',
             align: 'end',
           },
-          {
-            type: 'text',
-            text: `${title} 系統通知`,
-            weight: 'bold',
-            size: 'lg',
-            wrap: true,
-          },
+
           {
             type: 'text',
             text: msg,
-            size: 'sm',
+            size: 'md',
             weight: 'bold',
             wrap: true,
           },
