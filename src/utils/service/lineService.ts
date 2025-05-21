@@ -157,14 +157,14 @@ export const sendMsgServiceV4 = async (
             contents: [
               {
                 type: 'icon',
-                url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=000000',
-                size: 'md',
+                url: 'https://img.icons8.com/ios-filled/50/ffffff/appointment-reminders.png',
+                size: 'lg',
               },
               {
                 type: 'text',
                 text: `系統通知`,
                 weight: 'bold',
-                size: 'sm',
+                size: 'lg',
                 margin: 'md',
                 color: '#FFFFFF',
                 flex: 0,
@@ -175,7 +175,7 @@ export const sendMsgServiceV4 = async (
           {
             type: 'text',
             text: `${formatted}`,
-            size: 'xs',
+            size: 'md',
             color: '#FFFFFF',
             align: 'end',
             gravity: 'center',
