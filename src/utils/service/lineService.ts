@@ -157,9 +157,8 @@ export const sendMsgServiceV4 = async (
             contents: [
               {
                 type: 'icon',
-                url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=000000',
+                url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=#FFFFFF',
                 size: 'sm',
-                color: '#FFFFFF',
               },
               {
                 type: 'text',
