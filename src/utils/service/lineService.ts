@@ -138,7 +138,7 @@ export const sendMsgServiceV4 = async (
 ) => {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_TP;
   const now = new Date(); // 或你自己的日期
-  const formatted = formatInTimeZone(now, 'Asia/Taipei', 'MM-dd HH:mm');
+  const formatted = formatInTimeZone(now, 'Asia/Taipei', 'yyyy-MM-dd HH:mm');
 
   const flexMessage = {
     type: 'flex',
@@ -158,14 +158,14 @@ export const sendMsgServiceV4 = async (
               {
                 type: 'icon',
                 url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=000000',
-                size: 'md',
+                size: 'sm',
                 color: '#FFFFFF',
               },
               {
                 type: 'text',
-                text: ` 系統通知`,
+                text: `${title} 系統通知`,
                 weight: 'bold',
-                size: 'md',
+                size: 'sm',
                 margin: 'sm',
                 color: '#FFFFFF',
                 flex: 0,
@@ -190,6 +190,13 @@ export const sendMsgServiceV4 = async (
         contents: [
           {
             type: 'text',
+            text: `To ${cmpName}-${deptName}`,
+            size: 'sm',
+            color: '#999999',
+            wrap: true,
+          },
+          {
+            type: 'text',
             text: msg,
             size: 'md',
             weight: 'bold',
@@ -198,9 +205,10 @@ export const sendMsgServiceV4 = async (
 
           {
             type: 'text',
-            text: `${cmpName}-${deptName}`,
+            text: `From 資訊中心`,
             size: 'sm',
             color: '#999999',
+            align: 'string',
             wrap: true,
           },
         ],
