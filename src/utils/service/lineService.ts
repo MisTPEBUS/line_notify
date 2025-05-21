@@ -166,6 +166,13 @@ export const sendMsgServiceV4 = async (
           },
           {
             type: 'text',
+            text: msg,
+            size: 'sm',
+            weight: 'bold',
+            wrap: true,
+          },
+          {
+            type: 'text',
             text: `請站上進行營收比對並回報`,
             size: 'md',
             weight: 'bold',
