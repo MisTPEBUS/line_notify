@@ -157,7 +157,7 @@ export const sendMsgServiceV4 = async (
             contents: [
               {
                 type: 'icon',
-                url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=#FFFFFF',
+                url: 'https://img.icons8.com/?size=100&id=ZRVMY0SUfdBx&format=png&color=000000',
                 size: 'sm',
               },
               {
@@ -207,8 +207,8 @@ export const sendMsgServiceV4 = async (
             text: `From 資訊中心`,
             size: 'sm',
             color: '#999999',
-            align: 'string',
             wrap: true,
+            align: 'end',
           },
         ],
       },
