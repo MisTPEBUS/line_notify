@@ -147,25 +147,44 @@ export const sendMsgServiceV4 = async (
       type: 'bubble',
       body: {
         type: 'box',
-        layout: 'vertical',
-        spacing: 'md',
+        layout: 'baseline',
         contents: [
-          /* {
-            type: 'text',
-            text: `${title} `,
-            weight: 'bold',
-            size: 'xs',
-            align: 'start',
-            wrap: false,
-          }, */
+          // 頂部 Row: Icon + 系統通知 / 日期
           {
-            type: 'text',
-            text: `${formatted}`, // <-- 時間欄位
-            size: 'xs',
-            color: '#999999',
-            align: 'end',
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              {
+                type: 'box',
+                layout: 'baseline',
+                contents: [
+                  {
+                    type: 'icon',
+                    url: 'https://example.com/icon.png', // 可替換成系統圖示 URL
+                    size: 'sm',
+                  },
+                  {
+                    type: 'text',
+                    text: `${title} 通知`,
+                    weight: 'bold',
+                    size: 'sm',
+                    margin: 'sm',
+                    flex: 0,
+                  },
+                ],
+                flex: 1,
+              },
+              {
+                type: 'text',
+                text: `${formatted}`,
+                size: 'xs',
+                color: '#999999',
+                align: 'end',
+                gravity: 'center',
+              },
+            ],
           },
-
+          // 主內容文字
           {
             type: 'text',
             text: msg,
