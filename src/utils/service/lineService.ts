@@ -190,13 +190,6 @@ export const sendMsgServiceV4 = async (
         contents: [
           {
             type: 'text',
-            text: `【To ${cmpName}-${deptName}`,
-            size: 'sm',
-            color: '#999999',
-            wrap: true,
-          },
-          {
-            type: 'text',
             text: msg,
             size: 'md',
             weight: 'bold',
@@ -205,10 +198,10 @@ export const sendMsgServiceV4 = async (
 
           {
             type: 'text',
-            text: `From 資訊中心`,
+            text: `${cmpName}-${deptName}`,
             size: 'sm',
             color: '#999999',
-            align: 'end',
+            wrap: true,
           },
         ],
       },
